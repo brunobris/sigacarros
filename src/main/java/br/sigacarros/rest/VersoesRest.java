@@ -1,15 +1,19 @@
 package br.sigacarros.rest;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 
 import br.sigacarros.dao.VersoesDao;
 
-public class VersoesRest implements IVersoesRest {
+@Path("/VersoesService")
+public class VersoesRest {
+	
 	@Inject
 	private VersoesDao versoesDao;
 	
-	@Transactional
+	@POST
+	@Path("/versao")
 	public void salvar() {
 		versoesDao.save();
 	}
