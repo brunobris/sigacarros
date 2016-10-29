@@ -1,17 +1,22 @@
 package br.sigacarros.rest;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 
-import br.sigacarros.dao.MarcasDao;
+import br.sigacarros.service.MarcasService;
 
-public class MarcasRest implements IMarcasRest {
+@Path("/marcasservice")
+public class MarcasRest {
 
 	@Inject
-	private MarcasDao marcasDao;
+	private MarcasService marcasService;
 	
-	@Transactional
-	public void salvar() {
-		marcasDao.save();
+	@POST
+	@Path("/marca")
+	@Consumes("application/json")
+	public void salvarMarca() {
+		//marcasDao.save();
 	}
 }

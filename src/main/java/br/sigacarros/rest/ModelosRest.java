@@ -14,7 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import br.sigacarros.dao.ModelosDao;
 import br.sigacarros.data.ModelosData;
 import br.sigacarros.service.ModelosService;
 
@@ -23,9 +22,6 @@ public class ModelosRest {
 
 	@Inject
 	private ModelosService modelosService;
-
-	@Inject
-	private ModelosDao modelosDao;
 	
 	@POST
 	@Path("/modelo")
@@ -70,7 +66,12 @@ public class ModelosRest {
 	@Path("/modelo/{id}")
 	@Produces("application/json")
 	public ModelosData buscar(@PathParam("id") Integer idModelo) {
-		return modelosService.buscarModelo(idModelo);
+		
+		ModelosData modeloData = modelosService.buscarModelo(idModelo); 
+		if (modeloData == null) {
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
+		return modeloData;
 	}
 	
 
