@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 
 import br.sigacarros.dao.VersoesDao;
 
-@Path("/VersoesService")
+@Path("/versoesservice")
 public class VersoesRest {
 	
 	@Inject

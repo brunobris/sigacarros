@@ -23,14 +23,7 @@ public class ModelosDao extends GenericDao<ModelosData> {
 	
 	
 	public void salvar(ModelosData modelosData) {
-		
-		
-			//modelosData.setNome("208");
-			//MarcasData marcasData = new MarcasData();
-			//marcasData.setIdMarca(1);
-			//modelosData.setMarcasData(marcasData);
-			super.save(modelosData);
-			
+		super.save(modelosData);
 	}
 	
 	public void atualizar(ModelosData modelosData) {
@@ -41,8 +34,12 @@ public class ModelosDao extends GenericDao<ModelosData> {
 		 super.delete(id, ModelosData.class);
 	}
 	
-	public ModelosData buscar(Integer codigo) {
+	public ModelosData findById(Integer codigo) {
 		return super.find(codigo);
+	}
+	
+	public List<ModelosData> findByName(String nome) {
+		return super.findByName(nome);
 	}
 	
 	public List<ModelosData> listar() {

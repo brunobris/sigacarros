@@ -15,6 +15,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import br.sigacarros.data.ModelosData;
+import br.sigacarros.exceptions.AlreadyExistsException;
 import br.sigacarros.service.ModelosService;
 
 @Path("/modelosservice")
@@ -26,11 +27,13 @@ public class ModelosRest {
 	@POST
 	@Path("/modelo")
 	@Consumes("application/json")
-	public Response salvarModelo(ModelosData modelosData) {
+	public Response salvarModelo(ModelosData modelosData) throws AlreadyExistsException {
 		try {
 			modelosService.gravarModelo(modelosData);
 			
 			return Response.status(200).entity("Modelo cadastrado com sucesso!").build();
+		} catch (AlreadyExistsException arex) {
+			throw arex;
 		} catch (Exception ex) {
 			throw new WebApplicationException(500);
 		}

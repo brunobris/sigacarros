@@ -45,16 +45,19 @@ public abstract class GenericDao<T> {
     	return this.em.createNativeQuery(sql, type).getResultList();
     }
     
+    @SuppressWarnings("unchecked")
+    public List<T> findByName(String nome) {
+    	List<T> lista = em.createNamedQuery("findByName")
+    				 .setParameter("nomeModelo", nome).getResultList();
+    	
+    	return lista;
+    }
 
     @SuppressWarnings("unchecked")
     protected List<T> findByMarca(Integer idMarca) {
         try {
-        	System.out.println(classeEntidade.getSimpleName() + ".findByMarca = " + idMarca);
-        	System.out.println("---");
             List<T> lista = em.createNamedQuery("findByMarca")
                      .setParameter("marcaId", idMarca).getResultList();
-            
-            System.out.println("findByMarca: " + lista.size());
             return lista;
         } catch (Exception ex) {
         	ex.printStackTrace();

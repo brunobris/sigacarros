@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import br.sigacarros.dao.ModelosDao;
 import br.sigacarros.data.ModelosData;
+import br.sigacarros.exceptions.AlreadyExistsException;
 
 @Stateless
 public class ModelosService {
@@ -13,14 +14,14 @@ public class ModelosService {
 	@Inject
 	ModelosDao modelosDao;
 	
-	public void gravarModelo(ModelosData modelosData) {
-		//apenas teste
-		if (modelosDao.buscar(modelosData.getIdModelo()) != null) {
-			System.out.println("Ja existe!");
+	public void gravarModelo(ModelosData modelosData) throws AlreadyExistsException {
+		List<ModelosData> listaModelos = modelosDao.findByName(modelosData.getNome());
+		
+		if (listaModelos.isEmpty()) {
+			modelosDao.salvar(modelosData);
 		} else {
-			System.out.println("Nao existe!");
+			throw new AlreadyExistsException("Modelo já existe!");
 		}
-		modelosDao.salvar(modelosData);
 	}
 	
 	public void atualizarModelo(ModelosData modelosData) {
@@ -39,7 +40,7 @@ public class ModelosService {
 	}
 	
 	public ModelosData buscarModelo(Integer idModelo) {
-		return modelosDao.buscar(idModelo);
+		return modelosDao.findById(idModelo);
 	}
 	
 	public List<ModelosData> listarPorMarca(Integer idMarca) {
