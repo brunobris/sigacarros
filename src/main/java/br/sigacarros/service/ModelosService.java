@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
+
 import br.sigacarros.dao.ModelosDao;
 import br.sigacarros.data.ModelosData;
 import br.sigacarros.exceptions.AlreadyExistsException;
@@ -14,7 +16,7 @@ public class ModelosService {
 	@Inject
 	ModelosDao modelosDao;
 	
-	public void gravarModelo(ModelosData modelosData) throws AlreadyExistsException {
+	public void gravarModelo(ModelosData modelosData) {
 		List<ModelosData> listaModelos = modelosDao.findByName(modelosData.getNome());
 		
 		if (listaModelos.isEmpty()) {
@@ -26,12 +28,25 @@ public class ModelosService {
 	
 	public void atualizarModelo(ModelosData modelosData) {
 		
-		modelosDao.update(modelosData);
+		ModelosData modelosDataTemp = modelosDao.find(modelosData.getIdModelo());
+		
+		if (modelosDataTemp != null) {
+			modelosDao.atualizar(modelosData);	
+		} else {
+			throw new NotFoundException("Modelo não encontrado!");	
+		}
 	}
 	
 	
 	public void excluirModelo(Integer id) {
-		modelosDao.excluir(id);
+		ModelosData modelosDataTemp = modelosDao.find(id);
+		
+		if (modelosDataTemp != null) {
+			modelosDao.excluir(id);
+		} else {
+			throw new NotFoundException("Modelo não encontrado!");	
+		}
+		
 	}
 	
 	

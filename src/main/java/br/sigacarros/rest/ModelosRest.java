@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -27,14 +28,14 @@ public class ModelosRest {
 	@POST
 	@Path("/modelo")
 	@Consumes("application/json")
-	public Response salvarModelo(ModelosData modelosData) throws AlreadyExistsException {
+	public Response salvarModelo(ModelosData modelosData) {
 		try {
 			modelosService.gravarModelo(modelosData);
 			
 			return Response.status(200).entity("Modelo cadastrado com sucesso!").build();
 		} catch (AlreadyExistsException arex) {
 			throw arex;
-		} catch (Exception ex) {
+		} catch (WebApplicationException ex) {
 			throw new WebApplicationException(500);
 		}
 	}
@@ -47,15 +48,26 @@ public class ModelosRest {
 			modelosService.atualizarModelo(modelosData);
 			
 			return Response.status(200).entity("Modelo atualizado com sucesso!").build();
-		} catch (Exception ex) {
+		} catch (NotFoundException nfex) {
+			throw nfex;
+		} catch (WebApplicationException ex) {
 			throw new WebApplicationException(500);
 		}
 	}
 	
 	@DELETE
 	@Path("/modelo/{id}")
-	public void excluirModelo(@PathParam("id") Integer idModelo) {
-		modelosService.excluirModelo(idModelo);
+	public Response excluirModelo(@PathParam("id") Integer idModelo) {
+		try {
+
+			modelosService.excluirModelo(idModelo);
+			
+			return Response.status(200).entity("Modelo excluido com sucesso!").build();
+		} catch (NotFoundException nfex) {
+			throw nfex;
+		} catch (WebApplicationException ex) {
+			throw new WebApplicationException(500);
+		}
 	}
 	
 	@GET
@@ -72,7 +84,7 @@ public class ModelosRest {
 		
 		ModelosData modeloData = modelosService.buscarModelo(idModelo); 
 		if (modeloData == null) {
-			throw new WebApplicationException(Response.Status.NOT_FOUND);
+			throw new NotFoundException("Modelo " + idModelo + " não encontrado.");
 		}
 		return modeloData;
 	}
