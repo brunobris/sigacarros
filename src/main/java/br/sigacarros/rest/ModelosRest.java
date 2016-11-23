@@ -84,7 +84,7 @@ public class ModelosRest {
 		
 		ModelosData modeloData = modelosService.buscarModelo(idModelo); 
 		if (modeloData == null) {
-			throw new NotFoundException("Modelo " + idModelo + " não encontrado.");
+			throw new NotFoundException();
 		}
 		return modeloData;
 	}
