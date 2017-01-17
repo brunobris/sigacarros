@@ -4,6 +4,9 @@ CREATE TABLE marcas (
 	nome VARCHAR(50) NOT NULL
 );
 
+ALTER TABLE marcas ADD principal BOOLEAN NOT NULL DEFAULT 'false';
+
+
 CREATE TABLE modelos (
 	id_modelo serial PRIMARY KEY NOT NULL,
 	nome VARCHAR(50) NOT NULL,

@@ -19,6 +19,7 @@ public class MarcasData {
 	@Column(name="id_marca")
 	private int idMarca;
 	private String nome;
+	private Boolean principal;
 	
 	public int getIdMarca() {
 		return idMarca;
@@ -33,6 +34,15 @@ public class MarcasData {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Boolean getPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(Boolean principal) {
+		this.principal = principal;
+	}
+	
 	
 	
 }
