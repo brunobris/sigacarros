@@ -1,8 +1,11 @@
 package br.sigacarros.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import br.sigacarros.data.MarcasData;
+import br.sigacarros.data.ModelosData;
 
 public class MarcasDao extends GenericDao<MarcasData> {
 	
@@ -18,5 +21,9 @@ public class MarcasDao extends GenericDao<MarcasData> {
 		marcasData.setNome("Chevrolet");
 		super.save(marcasData);
 		
+	}
+	
+	public List<MarcasData> listar() {
+		return super.findAll("select * from marcas", MarcasData.class);
 	}
 }

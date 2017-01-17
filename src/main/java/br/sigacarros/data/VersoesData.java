@@ -2,12 +2,15 @@ package br.sigacarros.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="versoes")
@@ -24,19 +27,8 @@ public class VersoesData {
 	
 	@ManyToOne
 	@JoinColumn(name="id_modelo")
+	@JsonBackReference
 	private ModelosData modelosData;
-
-	@ManyToOne
-	@JoinColumn(name="id_combustivel")
-	private CombustiveisData combustiveisData;
-
-	@ManyToOne
-	@JoinColumn(name="id_cambio")
-	private CambiosData CambiosData;
-	
-	@ManyToOne
-	@JoinColumn(name="id_carroceria")
-	private CarroceriasData CarroceriasData;
 	
 	public int getIdVersoes() {
 		return idVersoes;
@@ -55,24 +47,5 @@ public class VersoesData {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public CombustiveisData getCombustiveisData() {
-		return combustiveisData;
-	}
-	public void setCombustiveisData(CombustiveisData combustiveisData) {
-		this.combustiveisData = combustiveisData;
-	}
-	public CambiosData getCambiosData() {
-		return CambiosData;
-	}
-	public void setCambiosData(CambiosData cambiosData) {
-		CambiosData = cambiosData;
-	}
-	public CarroceriasData getCarroceriasData() {
-		return CarroceriasData;
-	}
-	public void setCarroceriasData(CarroceriasData carroceriasData) {
-		CarroceriasData = carroceriasData;
 	}	
-	
 }

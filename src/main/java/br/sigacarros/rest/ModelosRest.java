@@ -82,10 +82,13 @@ public class ModelosRest {
 	@Produces("application/json")
 	public ModelosData buscar(@PathParam("id") Integer idModelo) {
 		
-		ModelosData modeloData = modelosService.buscarModelo(idModelo); 
-		if (modeloData == null) {
-			throw new NotFoundException();
+		ModelosData modeloData;
+		try {
+			modeloData = modelosService.buscarModelo(idModelo);
+		} catch (NotFoundException nfex) {
+			throw nfex;
 		}
+		
 		return modeloData;
 	}
 	

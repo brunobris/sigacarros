@@ -55,11 +55,18 @@ public class ModelosService {
 	}
 	
 	public ModelosData buscarModelo(Integer idModelo) {
-		return modelosDao.findById(idModelo);
+		 
+		
+		ModelosData modeloData = modelosDao.findById(idModelo, false);
+		if (modeloData == null) {
+			throw new NotFoundException();
+		}
+		
+		return modeloData;
 	}
 	
 	public List<ModelosData> listarPorMarca(Integer idMarca) {
-		return modelosDao.listarPorMarca(idMarca);
+		return modelosDao.findByMarca(idMarca);
 	}
 	
 	

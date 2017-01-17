@@ -48,21 +48,13 @@ public abstract class GenericDao<T> {
     @SuppressWarnings("unchecked")
     public List<T> findByName(String nome) {
     	List<T> lista = em.createNamedQuery("findByName")
-    				 .setParameter("nomeModelo", nome).getResultList();
+    				 .setParameter("nome", nome).getResultList();
     	
     	return lista;
     }
 
-    @SuppressWarnings("unchecked")
-    protected List<T> findByMarca(Integer idMarca) {
-        try {
-            List<T> lista = em.createNamedQuery("findByMarca")
-                     .setParameter("marcaId", idMarca).getResultList();
-            return lista;
-        } catch (Exception ex) {
-        	ex.printStackTrace();
-            return null;
-        }
+    protected EntityManager getEm() {
+    	return em;
     }
     
  
