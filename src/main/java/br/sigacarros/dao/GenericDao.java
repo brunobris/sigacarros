@@ -53,6 +53,7 @@ public abstract class GenericDao<T> {
     	return lista;
     }
 
+    @SuppressWarnings("unchecked")
     protected EntityManager getEm() {
     	return em;
     }

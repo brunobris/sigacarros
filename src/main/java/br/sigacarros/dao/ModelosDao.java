@@ -3,6 +3,8 @@ package br.sigacarros.dao;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+
 import br.sigacarros.data.ModelosData;
 
 @Stateless
@@ -58,4 +60,5 @@ public class ModelosDao extends GenericDao<ModelosData> {
             return null;
         }
     }
+
 }
