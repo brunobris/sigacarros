@@ -37,6 +37,4 @@ public class CombustiveisData {
 		this.descricao = descricao;
 	}
 	
-	
-	
 }

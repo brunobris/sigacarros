@@ -49,6 +49,7 @@ CREATE TABLE usuarios (
 
 CREATE TABLE veiculos (
 	id_veiculo serial PRIMARY KEY NOT NULL,
+	quilometragem INTEGER NULL,
 	id_modelo INTEGER NOT NULL REFERENCES modelos(id_modelo),
 	id_versao INTEGER NOT NULL REFERENCES versoes(id_versao),
 	
@@ -64,14 +65,14 @@ CREATE TABLE anuncios (
 	data_atualizacao DATE NULL,
 	horario_atualizacao DATE NULL,
 	preco numeric NOT NULL,
-	observacao VARCHAR(250),
+	descricao VARCHAR(500),
 	id_veiculo INTEGER NOT NULL REFERENCES veiculos(id_veiculo),
 	id_usuario INTEGER NOT NULL REFERENCES usuarios(id_usuario)
 );
 
 CREATE TABLE fotos (
 	id_foto serial PRIMARY KEY NOT NULL,
-	diretorio VARCHAR NOT NULL,
+	diretorio VARCHAR(250) NOT NULL,
 	id_anuncio INTEGER NOT NULL REFERENCES anuncios(id_anuncio)
 );
 
